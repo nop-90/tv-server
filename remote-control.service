@@ -8,8 +8,7 @@ TimeoutStopSec=30
 Restart=always
 RestartSec=10
 
-WorkingDirectory=/home/alarm/scripts/
-ExecStart=/usr/bin/python remote_control.py
+ExecStart=/usr/bin/python /usr/local/bin/remote_control.py -c /usr/local/share/toulon.conf
 NotifyAccess=all
 
 [Install]
