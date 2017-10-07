@@ -62,6 +62,6 @@ You can check that every action have been acknowledged by looking at the python 
 
 ## References
 * For French users in case of problems you can consult the CSA website to find your receptor : [French TNT transmitter database](http://www.csa.fr/matnt/couverture)  
-* This site uses channel number in place of frequencies, the table of equivalency is here : [French TNT canal/frequency equivalency](http://tvignaud.pagesperso-orange.fr/tv/canaux.htm)
+* CSA uses channel number in place of frequencies, the table of equivalency is here : [French TNT canal/frequency equivalency](http://tvignaud.pagesperso-orange.fr/tv/canaux.htm)
 * [DVBlast](https://www.videolan.org/projects/dvblast.html)
 * [Original DVB scan instruction](https://www.linuxtv.org/wiki/index.php/Dvbscan)
