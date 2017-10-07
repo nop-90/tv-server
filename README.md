@@ -29,9 +29,9 @@ The script rescan_freq.sh will do that automatically. Just give it a city name.
 
 You will have a [countrycode]-[city] file and a [city].conf in your folder. Keep the first one to rescan channels more quickly the next time as channels also change of program id for a given transponder.
 
-**Another NOTE: If you are missing some TV channels, do the scan 4 or 5 times to check if there wasn't any environmental issue impeding your previous scan. If you have still missing channels, try to shorten your distance to your antenna by using another antenna socket in your house or removing the cable between your device and the socket.**
+**Another NOTE: If you are missing some TV channels, do the scan 4 or 5 times to check if there wasn't any environmental issue impeding your previous scan. If you still have missing channels, try to shorten your distance to your antenna by using another antenna socket in your house or removing the cable between your device and the socket.**
 
-The program ID is this number between [] : ```TF1:690000000:INVERSION_AUTO:BANDWIDTH_8_MHZ:FEC_2_3:FEC_AUTO:QAM_64:TRANSMISSION_MODE_8K:GUARD_INTERVAL_1_8:HIERARCHY_NONE:120:0:[**1537**] ```  
+The program ID is this number between [] : ```TF1:690000000:INVERSION_AUTO:BANDWIDTH_8_MHZ:FEC_2_3:FEC_AUTO:QAM_64:TRANSMISSION_MODE_8K:GUARD_INTERVAL_1_8:HIERARCHY_NONE:120:0:[1537] ```  
 It allows to select a stream between all the streams given by a transmitter.
 
 In the [city].conf file is the list of every channel found, as the script attributes a number to each channel, you have to order all entries in the usual order you know in your country. You can throw non-free channels and dummy entries that have no name.
