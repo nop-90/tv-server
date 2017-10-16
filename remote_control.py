@@ -66,7 +66,7 @@ def record_dvb(channel):
         time_sec = channel[1].split(':')
         channel = channel[0]
         print("Starting recording channel "+channel)
-        subprocess.Popen(['/usr/local/bin/tv',channel])
+        subprocess.Popen(['/bin/bash','/usr/local/bin/tv',channel])
         t.sleep(3)
         time_sec = (int(time_sec[0])*3600)+(int(time_sec[1])*60)+int(time_sec[2])
         subprocess.Popen(['/usr/bin/ffmpeg','-i','rtp://@239.255.0.1:1234','-map','0:v','-map','0:a','-c:v','copy','-c:a','copy','-t',str(time_sec),'-y',DVR_OUTPUT+'/'+filename+'.ts'])
@@ -126,10 +126,11 @@ def start_server(ip, port):
                 print('Channel '+str(channel)+' does not exists')
         elif channel == "off":
             turnoff()
-        elif record_dvb(channel):
+        elif re.search(r'[0-9]{1,2}c[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}',channel) != None or re.search(r'[0-9]{1,2}c[0-9]{2}:[0-9]{2}t[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}',channel) != None:
+            record_dvb(channel)
             print("Record module started")
         else:
-            print("Wrong input (give a number between 1 and "+len(chan_list)+" or off command")
+            print("Wrong input (give a number between 1 and "+str(len(chan_list))+", record command or off command")
 
 
 ## Launch server if arguments are correct
