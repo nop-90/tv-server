@@ -1,4 +1,4 @@
-# Server for creating a DVBlast on your local network
+# Server to broadcast DVB stream on your local network
 
 ## Summary
 
@@ -8,10 +8,11 @@ You cannot watch 2 different channels on the same time. It can be done theorical
 
 ## Prerequisites
 
-Have an DVB-T adapter
-Having a network access
-A server having those 2 things
-Install 'dvblast' (for dvb streaming) and 'at' (to schedule recording)
+* Have an DVB-T adapter  
+* Having a network access  
+* A server having those 2 things  
+* Install 'dvblast' (for dvb streaming) and 'at' (to schedule recording)  
+* Systemd to create a permanant service (optional)  
 
 ## Installation
 
@@ -24,11 +25,13 @@ To give you an idea, there are 6 transmitters in France named R1,R2,R3,R4,R5,R6 
 
 The script rescan_freq.sh will do that automatically. Just give it a city name.
 
-**NOTE : You have to change your country code in the w_scan command to be sure to scan the frequency reserved to DVB-T in your country (default is FR). Those can change with 3-5 years like if your country decides to reallocate DVB-T frequency to GSM and force transponder to change their frequencies.**
+**NOTE : You have to change your country code in the w_scan command to be sure to scan the frequency reserved to DVB-T in your country (default is FR). Those can change every 3 or 5 years if your country decides to reallocate DVB-T frequency to telephony and force the transponders to change their frequencies.**
 
 You will have a [countrycode]-[city] file and a [city].conf in your folder. Keep the first one to rescan channels more quickly the next time as channels also change of program id for a given transponder.
 
-The program ID is this number between [] : TF1:690000000:INVERSION_AUTO:BANDWIDTH_8_MHZ:FEC_2_3:FEC_AUTO:QAM_64:TRANSMISSION_MODE_8K:GUARD_INTERVAL_1_8:HIERARCHY_NONE:120:0:[**1537**]
+**Another NOTE: If you are missing some TV channels, do the scan 4 or 5 times to check if there wasn't any environmental issue impeding your previous scan. If you still have missing channels, try to shorten your distance to your antenna by using another antenna socket in your house or removing the cable between your device and the socket.**
+
+The program ID is this number between [] : ```TF1:690000000:INVERSION_AUTO:BANDWIDTH_8_MHZ:FEC_2_3:FEC_AUTO:QAM_64:TRANSMISSION_MODE_8K:GUARD_INTERVAL_1_8:HIERARCHY_NONE:120:0:[1537] ```  
 It allows to select a stream between all the streams given by a transmitter.
 
 In the [city].conf file is the list of every channel found, as the script attributes a number to each channel, you have to order all entries in the usual order you know in your country. You can throw non-free channels and dummy entries that have no name.
@@ -49,10 +52,16 @@ To allow a device to communicate to the server, you have to copy the 'tv' script
 **NOTE : There is no priority for clients, every device can change the streamed channel for the whole network.**
 
 ## Usage
-	- To start or change the streamed channel : tv [channel number]
-	- To stop the streaming (don't do that if you are recording something): tv off
-	- To open vlc with the default streaming address : tv on
-	- To record immediately a tv channel : [channel]c[time of recording in hour:minutes:secondes] (Example : `tv 7c01:12:00` to record channel 7 during 1 hour 12 minutes)
-	- To schedule a record of a tv channel : [channel]c[start hour of recording in hour:minutes]t[time of recording in hour:minutes:secondes] (Example : `ŧv 7c21:05t02:25:00` to record channel 7 starting at 21:05 during 2 hours 25 minutes)	
+To start or change the streamed channel : ```tv [channel number]```  
+To stop the streaming (don't do that if you are recording something): ```tv off ```  
+To open vlc with the default streaming address : ```tv on ```  
+To record immediately a tv channel : ``` tv [channel]c[time of recording in hour:minutes:secondes]``` (Example : `tv 7c01:12:00` to record channel 7 during 1 hour 12 minutes)  
+To schedule a record of a tv channel : ``` tv [channel]c[start hour of recording in hour:minutes]t[time of recording in hour:minutes:secondes]``` (Example : `ŧv 7c21:05t02:25:00` to record channel 7 starting at 21:05 during 2 hours 25 minutes)	
 
-You can check that every action have been acknowledged by looking at the python script output with ``systemctl status remote-control``
+You can check that every action have been acknowledged by looking at the python script output or using ```systemctl status remote-control``` if you installed the service
+
+## References
+* For French users in case of problems you can consult the CSA website to find your receptor : [French TNT transmitter database](http://www.csa.fr/matnt/couverture)  
+* CSA uses channel number in place of frequencies, the table of equivalency is here : [French TNT canal/frequency equivalency](http://tvignaud.pagesperso-orange.fr/tv/canaux.htm)
+* [DVBlast](https://www.videolan.org/projects/dvblast.html)
+* [Original DVB scan instruction](https://www.linuxtv.org/wiki/index.php/Dvbscan)
